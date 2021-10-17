@@ -11,3 +11,24 @@ go run main.go
 ```sh
 curl -i  -H 'Accept: text/html' -H 'Accept: application/xml'   localhost:8000
 ```
+
+## 构建镜像
+
+```
+docker build . -t listenzz/gohttpserver:v1.0.0
+```
+
+## 启动镜像
+
+```
+docker run -p 8000:8000 listenzz/gohttpserver:v1.0.0 --
+```
+
+## 发布镜像
+
+```
+docker login
+docker push listenzz/gohttpserver:v1.0.0
+```
+
+[镜像地址](https://hub.docker.com/repository/docker/listenzz/gohttpserver)

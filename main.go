@@ -8,7 +8,7 @@ import (
 	"runtime"
 )
 
-var addr = flag.String("address", "127.0.0.1:8000", "The address to listen on for HTTP requests.")
+var addr = flag.String("address", ":8000", "The address to listen on for HTTP requests.")
 
 func main() {
 	flag.Parse()
