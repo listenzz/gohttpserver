@@ -1,9 +1,15 @@
 一个用 GO 写的返回请求头的 http 服务
 
+## 查看帮助信息
+
+```sh
+make help
+```
+
 ## 运行
 
 ```sh
-go run main.go
+make run
 ```
 
 ## 访问
@@ -15,26 +21,20 @@ curl -i  -H 'Accept: text/html' -H 'Accept: application/xml' localhost:8000
 ## 构建镜像
 
 ```sh
-docker build . -t listenzz/gohttpserver:v1.0.0
-# or
-make release
+make docker-build
 ```
 
 ## 启动镜像
 
 ```sh
-docker run -p 8000:8000 listenzz/gohttpserver:v1.0.0 -- # -address :8000
-# or
-make run
+make docker-run
 ```
 
 ## 发布镜像
 
 ```sh
 docker login
-docker push listenzz/gohttpserver:v1.0.0
-# or
-make push
+make docker-push
 ```
 
 [镜像地址](https://hub.docker.com/repository/docker/listenzz/gohttpserver)

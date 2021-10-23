@@ -3,7 +3,7 @@ COPY go.mod /go/src/project/
 WORKDIR /go/src/project/
 RUN go mod tidy
 COPY main.go /go/src/project/
-RUN  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /bin/gohttpserver
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /bin/gohttpserver
 
 FROM scratch
 COPY --from=build /bin/gohttpserver /bin/gohttpserver
