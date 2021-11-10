@@ -2,16 +2,16 @@ package main
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"runtime"
 	"syscall"
 	"time"
+
+	"golang.org/x/sync/errgroup"
 )
 
 var addr = flag.String("address", ":8080", "The address to listen on for HTTP requests.")
@@ -29,35 +29,31 @@ func main() {
 		Handler: mux,
 	}
 
-	processed := make(chan struct{})
+	g, ctx := errgroup.WithContext(context.Background())
 
-	go func() {
+	g.Go(func() error {
+		fmt.Printf("开始服务监听：%s\n\n", *addr)
+		return server.ListenAndServe()
+	})
+
+	g.Go(func() error {
 		quit := make(chan os.Signal, 1)
 		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-		sig := <-quit
-		fmt.Printf("接收到信号：%s\n", sig.String())
 
-		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
-
-		if err := server.Shutdown(ctx); err != nil {
-			log.Fatalf("服务优雅关闭失败, err: %v\n", err)
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case sig := <-quit:
+			fmt.Printf("接收到信号：%s\n", sig.String())
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+			fmt.Println("关闭服务...")
+			return server.Shutdown(ctx)
 		}
+	})
 
-		fmt.Println("服务优雅关闭")
+	fmt.Printf("服务终止, err :%v\n", g.Wait())
 
-		close(processed)
-	}()
-
-	fmt.Printf("开始服务监听：%s\n\n", *addr)
-	err := server.ListenAndServe()
-	if !errors.Is(err, http.ErrServerClosed) {
-		log.Fatalf("服务没有优雅终止, err :%v\n", err)
-	}
-
-	<-processed
-
-	fmt.Println("服务终止")
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
