@@ -8,6 +8,6 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /bin/gohttpserver
 
 FROM scratch
 COPY --from=build /bin/gohttpserver /bin/gohttpserver
-EXPOSE 8000
+EXPOSE 8080
 ENTRYPOINT [ "/bin/gohttpserver" ]
 CMD [ "--help" ]

@@ -25,7 +25,7 @@ docker-build:
 .PHONY: docker-run
 ## docker-run: 在 docker 容器内运行本应用
 docker-run: docker-build
-	docker run -p 8000:8000 listenzz/${APP}:${TAG} -- -address :8080
+	docker run -p 8080:8080 listenzz/${APP}:${TAG} -- -address :8080
 
 .PHONY: docker-push
 ## docker-push: 推送 docker 镜像到 docker hub
