@@ -1,4 +1,4 @@
-一个用 GO 写的返回请求头的 http 服务
+Echo http header
 
 ## 查看帮助信息
 
@@ -15,7 +15,7 @@ make run
 ## 访问
 
 ```sh
-curl -i  -H 'Accept: text/html' -H 'Accept: application/xml' localhost:8000
+curl -i  -H 'Accept: text/html' -H 'Accept: application/xml' localhost:8080
 ```
 
 ## 构建镜像
