@@ -10,7 +10,7 @@ build: clean
 .PHONY: run
 ## run: 在本地运行应用
 run:
-	go run -race main.go
+	go run -race main.go -alsologtostderr
 
 .PHONY: clean
 ## clean: 清除构建物
