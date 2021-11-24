@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gohttpserver
+spec:
+  selector:
+    matchLabels:
+      app: gohttpserver
+  template:
+    metadata:
+      labels:
+        app: gohttpserver
+    spec:
+      containers:
+        - name: gohttpserver
+          image: listenzz/gohttpserver:v1.0.5
+          imagePullPolicy: Always
+          args:
+            - "address"
+            - ":8080"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gohttpserver
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      targetPort: 8080
+      port: 8080
+  selector:
+    app: gohttpserver

@@ -1,6 +1,6 @@
 GO111MODULES=on
 APP=gohttpserver
-TAG=v1.0.0
+TAG=v1.0.5
 
 .PHONY: build
 ## build: 构建应用
