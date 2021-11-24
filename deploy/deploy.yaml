@@ -14,10 +14,11 @@ spec:
       containers:
         - name: gohttpserver
           image: listenzz/gohttpserver:v1.0.5
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           args:
-            - "address"
+            - "-address"
             - ":8080"
+            - "-logtostderr"
           resources:
             limits:
               memory: "128Mi"
