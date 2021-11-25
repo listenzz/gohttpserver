@@ -73,21 +73,28 @@ func home(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	data := time.Now().String()
+	_, err := w.Write([]byte(data))
+	if err != nil {
+		glog.Errorf("访问 / 时发生异常: %s", err.Error())
+		writeStatusCode(w, http.StatusInternalServerError)
+		return
+	}
 	writeHeader(w, "System-Version", os.Getenv("version"))
 	writeHeader(w, "Go-Version", runtime.Version())
-	writeStatusCode(w, http.StatusOK)
 
 	glog.Infof("\n访问者 IP: %s \n", r.RemoteAddr)
 }
 
 func healthz(w http.ResponseWriter, r *http.Request) {
-	_, err := w.Write([]byte("200"))
+	data := time.Now().String()
+	glog.Infof("liveness 探测 %s", data)
+	_, err := w.Write([]byte(data))
 	if err != nil {
 		glog.Errorf("访问 /healthz 时发生异常: %s", err.Error())
 		writeStatusCode(w, http.StatusInternalServerError)
 		return
 	}
-	writeStatusCode(w, http.StatusOK)
 }
 
 func writeHeader(w http.ResponseWriter, key string, header string) {

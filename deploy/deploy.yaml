@@ -13,12 +13,24 @@ spec:
     spec:
       containers:
         - name: gohttpserver
-          image: listenzz/gohttpserver:v1.0.5
-          imagePullPolicy: IfNotPresent
+          image: listenzz/gohttpserver:v1.0.6
+          imagePullPolicy: Always
           args:
             - "-address"
             - ":8080"
             - "-logtostderr"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
           resources:
             limits:
               memory: "128Mi"
@@ -36,5 +48,6 @@ spec:
     - name: http
       targetPort: 8080
       port: 8080
+      nodePort: 31533
   selector:
     app: gohttpserver
