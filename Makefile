@@ -5,7 +5,7 @@ TAG=v1.0.7
 .PHONY: build
 ## build: 构建应用
 build: clean
-	go build -o ${APP} main.go
+	go build -o ${APP} .
 
 .PHONY: run
 ## run: 在本地运行应用
