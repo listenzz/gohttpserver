@@ -20,7 +20,7 @@ clean:
 .PHONY: docker-build
 ## docker-build: 构建 docker 镜像
 docker-build:
-	docker build -t listenzz/${APP}:${TAG} .
+	docker build -t listenzz/${APP}:${TAG} -t listenzz/${APP}:latest .
 
 .PHONY: docker-run
 ## docker-run: 在 docker 容器内运行本应用
@@ -30,7 +30,7 @@ docker-run: docker-build
 .PHONY: docker-push
 ## docker-push: 推送 docker 镜像到 docker hub
 docker-push:
-	docker buildx build --platform linux/amd64,linux/arm64 -t listenzz/${APP}:${TAG} -o type=registry .
+	docker buildx build --platform linux/amd64,linux/arm64 -t listenzz/${APP}:${TAG} -t listenzz/${APP}:latest -o type=registry .
 
 .PHONY: help
 ## help: 打印帮助信息
