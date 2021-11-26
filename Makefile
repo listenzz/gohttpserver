@@ -1,6 +1,6 @@
 GO111MODULES=on
 APP=gohttpserver
-TAG=v1.0.6
+TAG=v1.0.7
 
 .PHONY: build
 ## build: 构建应用
@@ -29,8 +29,8 @@ docker-run: docker-build
 
 .PHONY: docker-push
 ## docker-push: 推送 docker 镜像到 docker hub
-docker-push: docker-build
-	docker push listenzz/${APP}:${TAG}
+docker-push:
+	docker buildx build --platform linux/amd64,linux/arm64 -t listenzz/${APP}:${TAG} -o type=registry .
 
 .PHONY: help
 ## help: 打印帮助信息
