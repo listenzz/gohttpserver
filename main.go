@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -64,8 +65,8 @@ func main() {
 
 func home(w http.ResponseWriter, r *http.Request) {
 	// 模拟耗时任务
-	glog.Infoln("接收到请求，5秒后返回结果")
-	time.Sleep(5 * time.Second)
+	glog.Infoln("接收到请求，1秒后返回结果")
+	time.Sleep(1 * time.Second)
 
 	for k, v := range r.Header {
 		for _, h := range v {
@@ -73,10 +74,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	data := time.Now().String()
-	_, err := w.Write([]byte(data))
+	_, err := fmt.Fprintf(w, "GOARCH: %s \n响应时间：%s \n", runtime.GOARCH, time.Now().Format("2006-01-02 15:04:05"))
 	if err != nil {
-		glog.Errorf("访问 / 时发生异常: %s", err.Error())
+		glog.Errorf("访问 / 时发生异常: %s \n", err.Error())
 		writeStatusCode(w, http.StatusInternalServerError)
 		return
 	}
@@ -88,7 +88,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func healthz(w http.ResponseWriter, r *http.Request) {
 	data := time.Now().String()
-	glog.Infof("liveness 探测 %s", data)
+	glog.Infof("healthz 探测 %s \n", data)
 	_, err := w.Write([]byte(data))
 	if err != nil {
 		glog.Errorf("访问 /healthz 时发生异常: %s", err.Error())

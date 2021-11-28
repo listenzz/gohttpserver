@@ -1,5 +1,7 @@
 # gohttpserver
 
+[部署到 k8s](./deploy/deploy.md)
+
 ## 查看帮助信息
 
 ```sh

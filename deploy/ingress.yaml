@@ -6,14 +6,15 @@ metadata:
     name: gohttpserver
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true" # 强制跳转 https
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
     - hosts:
-        - "go.todoit.tech"
-      secretName: wildcard-letsencrypt-tls
+        - "gohttpserver.todoit.tech"
+      secretName: wildcard-letsencrypt-tls # 使用已经生成好的泛域名证书
   rules:
-    - host: go.todoit.tech
+    - host: gohttpserver.todoit.tech
       http:
         paths:
           - pathType: Prefix
