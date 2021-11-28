@@ -101,7 +101,7 @@ spec:
 
 由于集群通过虚拟机部署在本地，这里使用 SwitchHosts 作域名映射
 
-![deploy-2021-11-28-10-32-02](https://todoit.oss-cn-shanghai.aliyuncs.com/todoit/deploy-2021-11-28-10-32-02.png)
+![deploy-2021-11-28-10-43-48](https://todoit.oss-cn-shanghai.aliyuncs.com/todoit/deploy-2021-11-28-10-43-48.png)
 
 通过浏览器访问 gohttpserver.todoit.tech
 
