@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: gohttpserver
-          image: listenzz/gohttpserver:v1.0.7
+          image: listenzz/gohttpserver:latest
           imagePullPolicy: Always
           args:
             - "-address"
