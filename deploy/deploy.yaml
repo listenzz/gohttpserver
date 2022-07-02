@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: default
   name: gohttpserver
 spec:
   replicas: 3
@@ -42,13 +43,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: default
   name: gohttpserver
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: http
       targetPort: 8080
       port: 8080
-      nodePort: 31533
   selector:
     app: gohttpserver

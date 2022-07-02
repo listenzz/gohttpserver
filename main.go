@@ -74,6 +74,10 @@ func home(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	fmt.Fprintln(w, "Hello, World!")
+
+	fmt.Fprintln(w, "版本：v1.0.31")
+
 	_, err := fmt.Fprintf(w, "GOARCH: %s \n响应时间：%s \n", runtime.GOARCH, time.Now().Format("2006-01-02 15:04:05"))
 	if err != nil {
 		glog.Errorf("访问 / 时发生异常: %s \n", err.Error())
