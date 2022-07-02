@@ -16,6 +16,8 @@ spec:
       containers:
         - name: gohttpserver
           image: registry.todoit.tech/library/gohttpserver:latest
+          imagePullSecrets:
+            - name: harbor-auth
           imagePullPolicy: Always
           args:
             - "-address"
