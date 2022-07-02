@@ -13,11 +13,11 @@ spec:
       labels:
         app: gohttpserver
     spec:
+      imagePullSecrets:
+        - name: harbor-auth
       containers:
         - name: gohttpserver
           image: registry.todoit.tech/library/gohttpserver:latest
-          imagePullSecrets:
-            - name: harbor-auth
           imagePullPolicy: Always
           args:
             - "-address"
