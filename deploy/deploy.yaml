@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gohttpserver
-          image: listenzz/gohttpserver:latest
+          image: registry.todoit.tech/library/gohttpserver:latest
           imagePullPolicy: Always
           args:
             - "-address"
