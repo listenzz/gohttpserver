@@ -7,7 +7,7 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH go build -o /bin/gohttpserver .
 
-FROM alpine
+FROM --platform=$BUILDPLATFORM alpine
 COPY --from=build /bin/gohttpserver /bin/gohttpserver
 EXPOSE 8080
 ENTRYPOINT [ "/bin/gohttpserver" ]
